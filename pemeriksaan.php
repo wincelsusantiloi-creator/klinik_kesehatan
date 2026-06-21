@@ -184,11 +184,11 @@ if (isset($_POST['update'])) {
 
     <h2>Pemeriksaan Pasien</h2>
 
-    <!-- LOGOUT & KEMBALI -->
-    <div class="menu">
-        <a href="logout.php" class="logout">Logout</a>
-        <a href="index.php" class="kembali">Kembali</a>
-    </div>
+    
+    <div class="menu"> 
+    <a href="logout.php" class="logout">Logout</a>
+    <a href="dashboard.php" class="kembali">Kembali Dashboard</a>
+</div>
 
     <?php
     $edit = null;

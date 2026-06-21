@@ -160,11 +160,16 @@ $data = mysqli_query($conn, "SELECT * FROM pasien");
         <h2>Data Pasien</h2>
 
         <div class="menu">
-            <a href="index.php" class="kembali">Kembali</a>
-            <a href="logout.php" class="logout">Logout</a>
-        </div>
-    </div>
+            <a href="dashboard.php" class="kembali">
+                 Kembali Dashboard
+            </a>
 
+            <a href="logout.php" class="logout">
+                Logout
+            </a>
+        </div>
+
+    </div>
     <table>
         <tr>
             <th>No</th>
