@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2026 at 09:15 AM
+-- Generation Time: Jun 30, 2026 at 08:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,27 +30,30 @@ SET time_zone = "+00:00";
 CREATE TABLE `dokter` (
   `id` int(11) NOT NULL,
   `nama` varchar(100) DEFAULT NULL,
-  `spesialis` varchar(100) DEFAULT NULL
+  `spesialis` varchar(100) DEFAULT NULL,
+  `hari` varchar(20) DEFAULT NULL,
+  `jam_mulai` time DEFAULT NULL,
+  `jam_selesai` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dokter`
 --
 
-INSERT INTO `dokter` (`id`, `nama`, `spesialis`) VALUES
-(1, 'Dr. Andi', 'Umum'),
-(2, 'Dr. Budi', 'Gigi'),
-(3, 'Dr. Siti', 'Anak'),
-(6, 'Dr. Andi Saputra', 'Umum'),
-(7, 'Dr. Budi Santoso', 'Gigi'),
-(8, 'Dr. Siti Rahma', 'Anak'),
-(9, 'Dr. Rina Lestari', 'Kandungan'),
-(10, 'Dr. Dedi Pratama', 'Bedah'),
-(11, 'Dr. Maya Sari', 'Mata'),
-(12, 'Dr. Fajar Hidayat', 'THT'),
-(13, 'Dr. Nabila Putri', 'Kulit'),
-(14, 'Dr. Rizky Ananda', 'Jantung'),
-(15, 'Dr. Wulan Kartika', 'Saraf');
+INSERT INTO `dokter` (`id`, `nama`, `spesialis`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
+(1, 'Dr. Andi', 'Umum', 'Senin', '08:00:00', '12:00:00'),
+(2, 'Dr. Budi', 'Gigi', 'Selasa', '09:00:00', '13:00:00'),
+(3, 'Dr. Siti', 'Anak', 'Rabu', '10:00:00', '14:00:00'),
+(6, 'Dr. Andi Saputra', 'Umum', 'Sabtu', '08:00:00', '11:00:00'),
+(7, 'Dr. Budi Santoso', 'Gigi', 'Senin', '13:00:00', '16:00:00'),
+(8, 'Dr. Siti Rahma', 'Anak', 'Selasa', '13:00:00', '16:00:00'),
+(9, 'Dr. Rina Lestari', 'Kandungan', 'Rabu', '13:00:00', '16:00:00'),
+(10, 'Dr. Dedi Pratama', 'Bedah', 'Kamis', '13:00:00', '16:00:00'),
+(11, 'Dr. Maya Sari', 'Mata', 'Jumat', '13:00:00', '16:00:00'),
+(12, 'Dr. Fajar Hidayat', 'THT', 'Sabtu', '09:00:00', '12:00:00'),
+(13, 'Dr. Nabila Putri', 'Kulit', 'Minggu', '09:00:00', '12:00:00'),
+(14, 'Dr. Rizky Ananda', 'Jantung', 'Sabtu', '09:00:00', '12:00:00'),
+(15, 'Dr. Wulan Kartika', 'Saraf', 'Minggu', '09:00:00', '12:00:00');
 
 -- --------------------------------------------------------
 
@@ -110,6 +113,28 @@ INSERT INTO `pasien` (`id`, `nama`, `umur`, `alamat`, `no_hp`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembelian`
+--
+
+CREATE TABLE `pembelian` (
+  `id_pembelian` int(11) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `id_obat` int(11) DEFAULT NULL,
+  `jumlah` int(11) DEFAULT NULL,
+  `total_harga` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pembelian`
+--
+
+INSERT INTO `pembelian` (`id_pembelian`, `username`, `id_obat`, `jumlah`, `total_harga`, `tanggal`) VALUES
+(1, 'susan', 16, -1, -5000, '2026-07-01');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pemeriksaan`
 --
 
@@ -144,16 +169,18 @@ INSERT INTO `pemeriksaan` (`id`, `id_pasien`, `id_dokter`, `tanggal`, `keluhan`)
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL,
+  `role` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'klinik123'),
-(4, 'admin', 'klinik123');
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
+(1, 'admin', 'klinik123', 'admin'),
+(5, 'pasien', '12345', 'pasien'),
+(6, 'susan', '12345', 'pasien');
 
 --
 -- Indexes for dumped tables
@@ -176,6 +203,12 @@ ALTER TABLE `obat`
 --
 ALTER TABLE `pasien`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pembelian`
+--
+ALTER TABLE `pembelian`
+  ADD PRIMARY KEY (`id_pembelian`);
 
 --
 -- Indexes for table `pemeriksaan`
@@ -214,6 +247,12 @@ ALTER TABLE `pasien`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `pembelian`
+--
+ALTER TABLE `pembelian`
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `pemeriksaan`
 --
 ALTER TABLE `pemeriksaan`
@@ -223,7 +262,7 @@ ALTER TABLE `pemeriksaan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

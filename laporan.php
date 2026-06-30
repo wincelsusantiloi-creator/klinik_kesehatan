@@ -95,23 +95,25 @@ a{
 <?php
 $no = 1;
 
-while($d = mysqli_fetch_assoc($dokter)){
+while($d = mysqli_fetch_assoc($dokter)) {
 ?>
 
 <tr>
+    <td><?= $no++ ?></td>
 
-<td><?= $no++ ?></td>
+    <td><?= $d['nama'] ?></td>
 
-<td><?= $d['nama'] ?></td>
+    <td><?= $d['spesialis'] ?></td>
 
-<td><?= $d['spesialis'] ?></td>
+    <td><?= $d['hari'] ?></td>
 
-<td><?= $d['hari'] ?></td>
+    <td>
+        <?= !empty($d['jam_mulai']) ? date('H:i', strtotime($d['jam_mulai'])) : '-' ?>
+    </td>
 
-<td><?= substr($d['jam_mulai'],0,5) ?></td>
-
-<td><?= substr($d['jam_selesai'],0,5) ?></td>
-
+    <td>
+        <?= !empty($d['jam_selesai']) ? date('H:i', strtotime($d['jam_selesai'])) : '-' ?>
+    </td>
 </tr>
 
 <?php } ?>

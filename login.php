@@ -2,22 +2,46 @@
 session_start();
 include 'config.php';
 
-if (isset($_POST['login'])) {
+if(isset($_POST['login'])){
+
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    $query = mysqli_query($conn, "SELECT * FROM users WHERE username='$user' AND password='$pass'");
+    $query = mysqli_query($conn,
+    "SELECT * FROM users 
+    WHERE username='$user' 
+    AND password='$pass'");
 
-    if (mysqli_num_rows($query) > 0) {
-        $_SESSION['login'] = $user;
-        header("Location: dashboard.php");
+
+    if(mysqli_num_rows($query) > 0){
+
+        $data = mysqli_fetch_assoc($query);
+
+        $_SESSION['login'] = $data['username'];
+        $_SESSION['role'] = $data['role'];
+
+
+        if($data['role']=="admin"){
+
+            header("Location: dashboard.php");
+
+        }else{
+
+            header("Location: dashboard_pasien.php");
+
+        }
+
         exit;
-    } else {
-        $error = "Login gagal!";
-    }
-}
-?>
 
+    }else{
+
+        $error="Login gagal!";
+
+    }
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -75,7 +99,7 @@ body::before{
     z-index:1;
 }
 
-/* Animasi form muncul */
+
 form{
     width:350px;
     background:rgba(255,255,255,0.15);
@@ -89,7 +113,6 @@ form{
     animation:slideUp 1s ease;
 }
 
-/* Judul melayang */
 form h2{
     margin-bottom:25px;
     color:white;

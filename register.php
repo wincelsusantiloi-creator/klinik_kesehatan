@@ -1,14 +1,30 @@
 <?php 
 include 'config.php';
 
-if (isset($_POST['register'])) {
+if(isset($_POST['register'])){
 
     $user = $_POST['username'];
     $pass = $_POST['password'];
+    $role = "pasien";
 
-    mysqli_query($conn, "INSERT INTO users VALUES('', '$user', '$pass')");
+    $query = mysqli_query($conn,
+    "INSERT INTO users (username,password,role)
+    VALUES ('$user','$pass','$role')");
 
-    header("Location: login.php");
+
+    if($query){
+
+        echo "<script>
+        alert('Berhasil daftar');
+        window.location='login.php';
+        </script>";
+
+    }else{
+
+        echo "Gagal: ".mysqli_error($conn);
+
+    }
+
 }
 ?>
 
