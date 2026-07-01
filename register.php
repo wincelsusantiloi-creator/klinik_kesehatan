@@ -163,6 +163,40 @@ if(isset($_POST['register'])){
         <h2>Register</h2>
 
         <div class="input-box">
+    <input 
+        type="text" 
+        name="nama" 
+        placeholder="Nama Lengkap"
+        required>
+</div>
+
+
+<div class="input-box">
+    <input 
+        type="number" 
+        name="umur" 
+        placeholder="Umur"
+        required>
+</div>
+
+<div class="input-box">
+    <input 
+        type="text" 
+        name="alamat" 
+        placeholder="Alamat"
+        required>
+</div>
+
+
+<div class="input-box">
+    <input 
+        type="text" 
+        name="no_hp" 
+        placeholder="Nomor HP"
+        required>
+</div>
+
+        <div class="input-box">
             <input 
                 type="text" 
                 name="username" 

@@ -1,14 +1,60 @@
-<?php   
-session_start();
-
-if (!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
-}
-
+<?php 
 include 'config.php';
 
-$data = mysqli_query($conn, "SELECT * FROM pasien");
+if(isset($_POST['register'])){
+
+    // data login
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
+    $role = "pasien";
+
+
+    // data pasien
+    $nama = $_POST['nama'];
+    $umur = $_POST['umur'];
+    $alamat = $_POST['alamat'];
+    $no_hp = $_POST['no_hp'];
+
+
+    // simpan akun ke users
+    $query = mysqli_query($conn,
+    "INSERT INTO users(username,password,role)
+    VALUES('$user','$pass','$role')");
+
+
+    if($query){
+
+        // mengambil id user yang baru dibuat
+        $id_user = mysqli_insert_id($conn);
+
+
+        // simpan identitas pasien
+        $simpan_pasien = mysqli_query($conn,
+        "INSERT INTO pasien(id_user,nama,umur,alamat,no_hp)
+        VALUES('$id_user','$nama','$umur','$alamat','$no_hp')");
+
+
+        if($simpan_pasien){
+
+            echo "<script>
+            alert('Berhasil daftar');
+            window.location='login.php';
+            </script>";
+
+        }else{
+
+            echo "Data pasien gagal: ".mysqli_error($conn);
+
+        }
+
+
+    }else{
+
+        echo "Gagal daftar: ".mysqli_error($conn);
+
+    }
+
+}
 ?>
 
 <!DOCTYPE html>
